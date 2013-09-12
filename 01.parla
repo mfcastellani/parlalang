@@ -1,0 +1,9 @@
+a = 0;
+while (a <= 10) {
+	put a;
+	a = a + 1;
+}
+
+c = a + 1;
+put c;
+
