@@ -24,9 +24,8 @@
 "put"           return PRINT;
 "quit"					return QUIT;
 "while"         return WHILE;
-
-
-[ \t]+                  /* ignore whitespace */;
+\n 							return EOL;
+[ \t]+          /* ignore whitespace */;
 %%
 
 int yywrap(void) {

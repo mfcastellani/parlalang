@@ -27,7 +27,7 @@
 %token <iValue> INTEGER
 %token <iValue> FLOAT
 %token <sIndex> VARIABLE
-%token WHILE IF PRINT 
+%token WHILE IF PRINT EOL
 %token FPRINT QUIT INSPECT
 
 /* System tokens */
@@ -54,16 +54,16 @@ function:
         ;
 
 stmt:
-          ';'                            { $$ = opr(';', 2, NULL, NULL); }
-        | QUIT ';'                       { printf("Bye!\n"); exit(0); }
-        | FPRINT expr ':' expr ';'       { $$ = opr(FPRINT, 2, $2, $4); }        
-        | PRINT expr ';'                 { $$ = opr(PRINT, 1, $2); }
-        | INSPECT expr ';'               { $$ = opr(INSPECT, 1, $2); }
-        | VARIABLE '=' expr ';'          { $$ = opr('=', 2, id($1), $3); }
+          EOL                            { $$ = opr(';', 2, NULL, NULL); }
+        | QUIT EOL                       { printf("Bye!\n"); exit(0); }
+        | FPRINT expr ':' expr EOL       { $$ = opr(FPRINT, 2, $2, $4); }        
+        | PRINT expr EOL                 { $$ = opr(PRINT, 1, $2); }
+        | INSPECT expr EOL               { $$ = opr(INSPECT, 1, $2); }
+        | VARIABLE '=' expr EOL          { $$ = opr('=', 2, id($1), $3); }
         | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); }
         | IF '(' expr ')' stmt %prec IFX { $$ = opr(IF, 2, $3, $5); }
         | IF '(' expr ')' stmt ELSE stmt { $$ = opr(IF, 3, $3, $5, $7); }
-        | expr ';'                       { $$ = $1; }
+        | expr EOL                       { $$ = $1; }
         | '{' stmt_list '}'              { $$ = $2; }
         ;
 
