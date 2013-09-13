@@ -16,14 +16,20 @@ end
 
 ** Apesar de ser possível usar a = a + 1 o load é o ParlaWay de fazer **
 
+load a * b into d
+load a / b into e
+
+if (d >= e) do
+	say d
+	about d
+end else do
+	say e
+	about e
+end
+
 load a + b into c 
 say c
 
-load a * b into d
-say d
-
-load a / b into e
-say e
 
 ** mostrando a estrutura interna da variável **
 
