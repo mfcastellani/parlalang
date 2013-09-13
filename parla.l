@@ -5,8 +5,12 @@
   #define LOOKUP 0
 %}
 
+%s COMMENT
 
 %%
+^[ \t]*\*\* { BEGIN COMMENT; }
+^[ \t]*\*\*[ \t]*.*[ \t]*\*\*\n {  } 
+
 [a-z] { yylval.sIndex = *yytext - 'a'; return VARIABLE; }
 
 -?[0-9]* { yylval.iValue = atoi(yytext); return INTEGER; }
@@ -15,8 +19,9 @@
 
 ([-()<>=+*/;{}.,:]) { return *yytext;}
 
-(^\*{1,2}(.)\*{1,2}\n) { return COMMENT; }
+\*\*.*\*\* { return COMMENT; }
 
+#.*									/* Possibilita o uso de she-bang */
 ">="                return GE;
 "<="                return LE;
 "=="                return EQ;

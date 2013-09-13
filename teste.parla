@@ -1,14 +1,20 @@
+** Carrego 0 em a e incremento, mostrando o valor **
+
 load 0 into a
 while (a <= 10) do
 	say a
-	a = a + 1
+	load a + 1 into a
 end
+
+** Usando um negativo agora **
 
 load -10 into b
 while (b <= 1) do
 	say b
-	b = b + 1
+	load b + 1 into b
 end
+
+** Apesar de ser possível usar a = a + 1 o load é o ParlaWay de fazer **
 
 load a + b into c 
 say c
@@ -18,6 +24,8 @@ say d
 
 load a / b into e
 say e
+
+** mostrando a estrutura interna da variável **
 
 say details about a
 say details about b

@@ -28,7 +28,7 @@
 %token <iValue> FLOAT
 %token <sIndex> VARIABLE
 %token WHILE IF PRINT EOL INTO DEFTOKEN
-%token FPRINT QUIT INSPECT COMMENT
+%token FPRINT QUIT INSPECT
 
 /* System tokens */
 %token VERSION 
