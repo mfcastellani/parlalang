@@ -13,19 +13,24 @@
 
 [-()<>=+*/;{}.,:] { return *yytext;}
 
-">="            return GE;
-"<="            return LE;
-"=="            return EQ;
-"!="            return NE;
-"else"          return ELSE;
-"fput"          return FPRINT;
-"if"            return IF;
-"inspect" 			return INSPECT;
-"put"           return PRINT;
-"quit"					return QUIT;
-"while"         return WHILE;
-\n 							return EOL;
-[ \t]+          /* ignore whitespace */;
+"**"([^*]|"*"+[^*/])*"**"+ { return COMMENT; }
+
+">="                return GE;
+"<="                return LE;
+"=="                return EQ;
+"!="                return NE;
+"else"              return ELSE;
+"fput"              return FPRINT;
+"if"                return IF;
+"into"							return INTO;
+"load"							return DEFTOKEN;
+"say"               return PRINT;
+"say bye" 			    return QUIT;
+"say details about" |
+"about"						  return INSPECT;
+"while"             return WHILE;
+\n 							    return EOL;
+[ \t]								/* Ignorar espaço em branco e tab */
 %%
 
 int yywrap(void) {

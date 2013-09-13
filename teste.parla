@@ -1,13 +1,17 @@
-a = 0
+** Teste de variavel este e um comentário FTW **
+load 0 into a
 while (a <= 10) {
-	put a
+	say a
 	a = a + 1
 }
 
 c = a + 1
-put c
+say c
 
-inspect a
-inspect c
+say details about a
+say details about c
 
-quit
+about a
+about c
+
+say bye

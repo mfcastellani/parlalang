@@ -27,8 +27,8 @@
 %token <iValue> INTEGER
 %token <iValue> FLOAT
 %token <sIndex> VARIABLE
-%token WHILE IF PRINT EOL
-%token FPRINT QUIT INSPECT
+%token WHILE IF PRINT EOL INTO DEFTOKEN
+%token FPRINT QUIT INSPECT COMMENT
 
 /* System tokens */
 %token VERSION 
@@ -60,6 +60,7 @@ stmt:
         | PRINT expr EOL                 { $$ = opr(PRINT, 1, $2); }
         | INSPECT expr EOL               { $$ = opr(INSPECT, 1, $2); }
         | VARIABLE '=' expr EOL          { $$ = opr('=', 2, id($1), $3); }
+        | DEFTOKEN expr INTO VARIABLE    { $$ = opr('=', 2, id($4), $2); }
         | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); }
         | IF '(' expr ')' stmt %prec IFX { $$ = opr(IF, 2, $3, $5); }
         | IF '(' expr ')' stmt ELSE stmt { $$ = opr(IF, 3, $3, $5, $7); }
