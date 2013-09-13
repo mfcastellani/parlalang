@@ -1,17 +1,26 @@
-** Teste de variavel este e um comentário FTW **
 load 0 into a
 while (a <= 10) {
 	say a
 	a = a + 1
 }
 
-c = a + 1
+load -10 into b
+while (b <= 1) {
+	say b
+	b = b + 1
+}
+
+load a + b into c 
 say c
 
-say details about a
-say details about c
+load a * b into d
+say d
 
-about a
+load a / b into e
+say e
+
+say details about a
+say details about b
 about c
 
 say bye

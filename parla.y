@@ -168,5 +168,5 @@ int main(int argc, char *argv[]) {
 }
 
 void yyerror(char *s) {
-  printf("%s\n", s);
+  printf("%s\n ->> %s", s, s);
 }

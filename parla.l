@@ -2,18 +2,20 @@
 	#include <stdlib.h>
 	#include "main.h"
   #include "y.tab.h"
-  #define ECHO fwrite(yytext, yyleng, 1, yyout) 
+  #define LOOKUP 0
 %}
 
 
 %%
 [a-z] { yylval.sIndex = *yytext - 'a'; return VARIABLE; }
-[0-9]* { yylval.iValue = atoi(yytext); return INTEGER; }
-[0-9]+\.[0-9]+ { yylval.iValue = atoi(yytext); return FLOAT; }
 
-[-()<>=+*/;{}.,:] { return *yytext;}
+-?[0-9]* { yylval.iValue = atoi(yytext); return INTEGER; }
 
-"**"([^*]|"*"+[^*/])*"**"+ { return COMMENT; }
+[eE][-+]?[0-9]*\.[0-9]+  { yylval.iValue = atoi(yytext); return FLOAT; }
+
+([-()<>=+*/;{}.,:]) { return *yytext;}
+
+(^\*{1,2}(.)\*{1,2}\n) { return COMMENT; }
 
 ">="                return GE;
 "<="                return LE;
