@@ -1,14 +1,14 @@
 load 0 into a
-while (a <= 10) {
+while (a <= 10) do
 	say a
 	a = a + 1
-}
+end
 
 load -10 into b
-while (b <= 1) {
+while (b <= 1) do
 	say b
 	b = b + 1
-}
+end
 
 load a + b into c 
 say c

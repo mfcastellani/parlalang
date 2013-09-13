@@ -21,7 +21,9 @@
 "<="                return LE;
 "=="                return EQ;
 "!="                return NE;
+"do"								return '{';
 "else"              return ELSE;
+"end"								return '}';
 "fput"              return FPRINT;
 "if"                return IF;
 "into"							return INTO;
