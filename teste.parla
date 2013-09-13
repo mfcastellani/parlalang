@@ -19,6 +19,9 @@ end
 load a * b into d
 load a / b into e
 
+f = a + b + c + d + e
+f = f / b
+
 if (d >= e) do
 	say d
 	about d
