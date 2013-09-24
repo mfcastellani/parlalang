@@ -2,6 +2,8 @@
 #define MINOR_VERSION    0
 #define REVISION_VERSION 1
 
+#define BASIC_CHAR       0
+
 typedef enum { typeCon, typeId, typeOpr } nodeEnum;
 
 /* constants */
@@ -17,6 +19,7 @@ typedef struct {
 /* operators */
 typedef struct {
     int oper;                   /* operator */
+    int type;                   /* type of data */
     int nops;                   /* number of operands */
     struct nodeTypeTag **op;	/* operands */
 } oprNodeType;

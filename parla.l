@@ -5,6 +5,7 @@
   #define LOOKUP 0
 %}
 
+
 %s COMMENT
 
 %%
@@ -26,13 +27,16 @@
 "<="                return LE;
 "=="                return EQ;
 "!="                return NE;
+"bchar"							return BCHAR_TYPE;
+"set"								return DEFTOKEN;
 "do"								return '{';
+"echar"							return ECHAR_TYPE;
 "else"              return ELSE;
 "end"								return '}';
-"fput"              return FPRINT;
 "if"                return IF;
 "into"							return INTO;
-"load"							return DEFTOKEN;
+"like"      				return TYPETOKEN;
+"load"							return LOADTOKEN;
 "say"               return PRINT;
 "say bye" 			    return QUIT;
 "say details about" |

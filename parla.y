@@ -27,8 +27,9 @@
 %token <iValue> INTEGER
 %token <iValue> FLOAT
 %token <sIndex> VARIABLE
-%token WHILE IF PRINT EOL INTO DEFTOKEN
-%token FPRINT QUIT INSPECT
+%token WHILE IF PRINT EOL INTO LOADTOKEN
+%token QUIT INSPECT DEFTOKEN TYPETOKEN
+%token BCHAR_TYPE ECHAR_TYPE NUMBER_TYPE
 
 /* System tokens */
 %token VERSION 
@@ -54,18 +55,18 @@ function:
         ;
 
 stmt:
-          EOL                            { $$ = opr(';', 2, NULL, NULL); }
-        | QUIT EOL                       { printf("Bye!\n"); exit(0); }
-        | FPRINT expr ':' expr EOL       { $$ = opr(FPRINT, 2, $2, $4); }        
-        | PRINT expr EOL                 { $$ = opr(PRINT, 1, $2); }
-        | INSPECT expr EOL               { $$ = opr(INSPECT, 1, $2); }
-        | VARIABLE '=' expr EOL          { $$ = opr('=', 2, id($1), $3); }
-        | DEFTOKEN expr INTO VARIABLE    { $$ = opr('=', 2, id($4), $2); }
-        | WHILE '(' expr ')' stmt        { $$ = opr(WHILE, 2, $3, $5); }
-        | IF '(' expr ')' stmt %prec IFX { $$ = opr(IF, 2, $3, $5); }
-        | IF '(' expr ')' stmt ELSE stmt { $$ = opr(IF, 3, $3, $5, $7); }
-        | expr EOL                       { $$ = $1; }
-        | '{' stmt_list '}'              { $$ = $2; }
+          EOL                               { $$ = opr(';', 2, NULL, NULL); }
+        | QUIT EOL                          { printf("Bye!\n"); exit(0); }
+        | PRINT expr EOL                    { $$ = opr(PRINT, 1, $2); }
+        | INSPECT expr EOL                  { $$ = opr(INSPECT, 1, $2); }
+        | VARIABLE '=' expr EOL             { $$ = opr('=', 2, id($1), $3); }
+        | TYPETOKEN expr DEFTOKEN VARIABLE  { $$ = opr(DEFTOKEN, 2, id($4), $2); }
+        | LOADTOKEN expr INTO VARIABLE      { $$ = opr('=', 2, id($4), $2); }
+        | WHILE '(' expr ')' stmt           { $$ = opr(WHILE, 2, $3, $5); }
+        | IF '(' expr ')' stmt %prec IFX    { $$ = opr(IF, 2, $3, $5); }
+        | IF '(' expr ')' stmt ELSE stmt    { $$ = opr(IF, 3, $3, $5, $7); }
+        | expr EOL                          { $$ = $1; }
+        | '{' stmt_list '}'                 { $$ = $2; }
         ;
 
 stmt_list:
@@ -160,7 +161,7 @@ int main(int argc, char *argv[]) {
   size_t arglen;
   int i = 0;
 
-  printf("Process Administration and Report LAnguage -> PARLA\n");
+  printf("Parla, a small test language just because I can\n");
   printf("Version: %d.%d.%d - Marcelo Castellani (c) - 2013\n\n", MAJOR_VERSION, MINOR_VERSION, REVISION_VERSION);
   yyparse();
 

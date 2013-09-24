@@ -20,13 +20,8 @@ int ex(nodeType *p) {
                                     ex(p->opr.op[2]);
                                 return 0;
                                 break;  
-                case PRINT:     printf("%d\n", ex(p->opr.op[0])); 
-                                return 0;
-                                break;  
-                case FPRINT:    printf("Formated print %d:%d", ex(p->opr.op[0]), ex(p->opr.op[1]));
-                                switch(ex(p->opr.op[0])) {
-                                    case 1: printf("%.4f\n", (double)ex(p->opr.op[1])); 
-                                    case 2: printf("%d\n", ex(p->opr.op[1])); 
+                case PRINT:     switch(p->opr.type) {
+                                case BASIC_CHAR: printf("  -> BASIC CHAR[%d]\n", ex(p->opr.op[0])); 
                                 }
                                 return 0;
                                 break;  
@@ -42,7 +37,10 @@ int ex(nodeType *p) {
                 case ';':       ex(p->opr.op[0]); 
                                 return ex(p->opr.op[1]);
                                 break;  
-                case '=':       return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
+                case '=':       p->opr.type = BASIC_CHAR;
+                                return sym[p->opr.op[0]->id.i] = ex(p->opr.op[1]);
+                                break;  
+                case DEFTOKEN:  return p->opr.type = ex(p->opr.op[1]);
                                 break;  
                 case UMINUS:    return -ex(p->opr.op[0]);
                                 break;  
