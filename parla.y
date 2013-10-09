@@ -55,42 +55,42 @@ function:
         ;
 
 stmt:
-          EOL                               { $$ = opr(';', 2, NULL, NULL); }
-        | QUIT EOL                          { printf("Bye!\n"); exit(0); }
-        | PRINT expr EOL                    { $$ = opr(PRINT, 1, $2); }
-        | INSPECT expr EOL                  { $$ = opr(INSPECT, 1, $2); }
-        | VARIABLE '=' expr EOL             { $$ = opr('=', 2, id($1), $3); }
-        | TYPETOKEN expr DEFTOKEN VARIABLE  { $$ = opr(DEFTOKEN, 2, id($4), $2); }
-        | LOADTOKEN expr INTO VARIABLE      { $$ = opr('=', 2, id($4), $2); }
-        | WHILE '(' expr ')' stmt           { $$ = opr(WHILE, 2, $3, $5); }
-        | IF '(' expr ')' stmt %prec IFX    { $$ = opr(IF, 2, $3, $5); }
-        | IF '(' expr ')' stmt ELSE stmt    { $$ = opr(IF, 3, $3, $5, $7); }
-        | expr EOL                          { $$ = $1; }
-        | '{' stmt_list '}'                 { $$ = $2; }
+          EOL                                   { $$ = opr(';', 2, NULL, NULL); }
+        | QUIT EOL                              { printf("Bye!\n"); exit(0); }
+        | PRINT expr EOL                        { $$ = opr(PRINT, 1, $2); }
+        | INSPECT expr EOL                      { $$ = opr(INSPECT, 1, $2); }
+        | VARIABLE '=' expr EOL                 { $$ = opr('=', 2, id($1), $3); }
+        | TYPETOKEN expr DEFTOKEN VARIABLE EOL  { $$ = opr(DEFTOKEN, 2, id($4), $2); }
+        | LOADTOKEN expr INTO VARIABLE EOL      { $$ = opr('=', 2, id($4), $2); }
+        | WHILE '(' expr ')' stmt EOL           { $$ = opr(WHILE, 2, $3, $5); }
+        | IF '(' expr ')' stmt %prec IFX EOL    { $$ = opr(IF, 2, $3, $5); }
+        | IF '(' expr ')' stmt ELSE stmt EOL    { $$ = opr(IF, 3, $3, $5, $7); }
+        | expr EOL                              { $$ = $1; }
+        | '{' stmt_list '}'                     { $$ = $2; }
         ;
 
 stmt_list:
-          stmt                  { $$ = $1; }
-        | stmt_list stmt        { $$ = opr(';', 2, $1, $2); }
+          stmt                                  { $$ = $1; }
+        | stmt_list stmt                        { $$ = opr(';', 2, $1, $2); }
         ;
 
 expr:
-          INTEGER               { $$ = con($1); }
-        | FLOAT                 { $$ = con($1); }
-        | VARIABLE              { $$ = id($1); }
-        | '-' expr %prec UMINUS { $$ = opr(UMINUS, 1, $2); }
-        | expr '+' expr         { $$ = opr('+', 2, $1, $3); }
-        | expr '-' expr         { $$ = opr('-', 2, $1, $3); }
-        | expr '*' expr         { $$ = opr('*', 2, $1, $3); }
-        | expr '/' expr         { $$ = opr('/', 2, $1, $3); }
-        | expr '<' expr         { $$ = opr('<', 2, $1, $3); }
-        | expr '>' expr         { $$ = opr('>', 2, $1, $3); }
-        | expr GE expr          { $$ = opr(GE, 2, $1, $3); }
-        | expr LE expr          { $$ = opr(LE, 2, $1, $3); }
-        | expr NE expr          { $$ = opr(NE, 2, $1, $3); }
-        | expr EQ expr          { $$ = opr(EQ, 2, $1, $3); }
-        | '(' expr ')'          { $$ = $2; }
-        | error                 { yyerror; }
+          INTEGER                               { $$ = con($1); }
+        | FLOAT                                 { $$ = con($1); }
+        | VARIABLE                              { $$ = id($1); }
+        | '-' expr %prec UMINUS                 { $$ = opr(UMINUS, 1, $2); }
+        | expr '+' expr                         { $$ = opr('+', 2, $1, $3); }
+        | expr '-' expr                         { $$ = opr('-', 2, $1, $3); }
+        | expr '*' expr                         { $$ = opr('*', 2, $1, $3); }
+        | expr '/' expr                         { $$ = opr('/', 2, $1, $3); }
+        | expr '<' expr                         { $$ = opr('<', 2, $1, $3); }
+        | expr '>' expr                         { $$ = opr('>', 2, $1, $3); }
+        | expr GE expr                          { $$ = opr(GE, 2, $1, $3); }
+        | expr LE expr                          { $$ = opr(LE, 2, $1, $3); }
+        | expr NE expr                          { $$ = opr(NE, 2, $1, $3); }
+        | expr EQ expr                          { $$ = opr(EQ, 2, $1, $3); }
+        | '(' expr ')'                          { $$ = $2; }
+        | error                                 { yyerror; }
         ;
 
 %%
